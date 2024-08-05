@@ -13,7 +13,8 @@ class MeetingController extends Controller
      */
     public function index()
     {
-        //
+        $view_meetings = Meeting::latest()->get();
+        return new MeetingCollection($view_meetings);
     }
 
     /**

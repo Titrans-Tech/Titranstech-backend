@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class JobpostResourceCollection extends ResourceCollection
+class MeetingCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -14,18 +14,18 @@ class JobpostResourceCollection extends ResourceCollection
      */
     public function toArray(Request $request): array
     {
+       
         return [
             'data' => $this->collection->transform(function ($user) {
                 return [
-                    'slug' => $user->slug,
-                    'title' => $user->title,
+                    'name' => $user->name,
                     'body' => $user->body,
-                    'company' => $user->company,
-                    'images' => asset('resourceimages/' . $user->slug),  // Include the image URL
+                    'email' => $user->email,
                     'created_at' => $user->created_at->format('M d,Y'),
                     
                 ];
             }),
         ];
+    
     }
 }
