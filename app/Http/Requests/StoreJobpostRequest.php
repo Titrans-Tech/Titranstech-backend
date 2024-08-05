@@ -11,7 +11,7 @@ class StoreJobpostRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,12 @@ class StoreJobpostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => ['required', 'string', 'max:255'],
+            'body' => ['required', 'string'],
+            'author' => ['required', 'string'],
+            'company' => ['required', 'string'],
+            // 'images' => 'nullable|mimes:png,jpg,jpeg',
+            'images' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
         ];
     }
 }

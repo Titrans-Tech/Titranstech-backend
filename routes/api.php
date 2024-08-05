@@ -16,5 +16,9 @@ Route::post('logout', [AuthController::class, 'logout']);
 Route::post('createblog', [BlogController::class, 'store']);
 Route::get('blogtables', [BlogController::class, 'index']);
 Route::get('viewsingleblog/{slug}', [BlogController::class, 'show']);
-Route::patch('editblog/{slug}', [BlogController::class, 'update']);
-Route::post('deleteblog/{slug}', [BlogController::class, 'destroy']);
+Route::put('editblog/{id}', [BlogController::class, 'update']);
+Route::delete('deleteblog/{id}', [BlogController::class, 'destroy']);
+
+// Job
+
+Route::post('createjobs', [BlogController::class, 'store']);
