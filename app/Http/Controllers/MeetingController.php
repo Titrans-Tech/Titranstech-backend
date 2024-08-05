@@ -5,6 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Meeting;
 use App\Http\Requests\StoreMeetingRequest;
 use App\Http\Requests\UpdateMeetingRequest;
+use App\Http\Resources\MeetingCollection;
+use App\Http\Resources\MeetingResource;
+
+use Illuminate\Http\Request;
+use Mailjet\Resources;
+use Mailjet\Client;
 
 class MeetingController extends Controller
 {
@@ -20,27 +26,56 @@ class MeetingController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreMeetingRequest $request)
+    public function store(Request $request)
     {
-        $addmeeting = Meeting::create([
-            'email' => $request->email,
-            'name' => $request->name,
-            'body' => $request->body,
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'body' => 'required|string',
         ]);
+         $emailContent = [
+            'Messages' => [
+                [
+                    'From' => [
+                        'Email' => $request->email,
+                        'Name' => $request->name,
+                        'Body' => $request->body,
+                    ],
+                    'To' => [
+                        [
+                            'Email' => "info@titranstech.co.uk",
+                            'Name' => "Recipient Name"
+                        ]
+                    ],
+                    'Subject' => "New Form Submission",
+                    'TextPart' => "You have received a new form submission.",
+                    'HTMLPart' => "<h3>New Form Submission</h3><p><strong>Name:</strong> {$validatedData['name']}</p><p><strong>Email:</strong> {$validatedData['email']}</p><p><strong>Message:</strong> {$validatedData['body']}</p>"
+                ]
+            ]
+        ];
 
+        // Send the email using Mailjet
+        $mj = new Client(config('services.mailjet.key'), config('services.mailjet.secret'), true, ['version' => 'v3.1']);
+        $response = $mj->post(Resources::$Email, ['body' => $emailContent]);
+
+        // Check for a successful response
+        if ($response->success()) {
+            return response()->json(['message' => 'Form submitted successfully and email sent.'], 200);
+        } else {
+            return response()->json(['message' => 'Failed to send email.'], 500);
+        }
     
-        return response()->json([
-            'meeting' => $addmeeting,
-            'message' => 'You have created job successfully'
-        ], 201);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Meeting $meeting)
+    public function show($id)
     {
         //
+        $viewsingle_meetings = Meeting::latest()->get();
+        return new MeetingResource($viewsingle_meetings);
+
     }
 
     /**
@@ -54,8 +89,14 @@ class MeetingController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Meeting $meeting)
+    public function destroy($id)
     {
+        $meeting = Meeting::findOrFail($id);
+        $meeting->delete();
+
+        return response()->json([
+            'message' => 'meeting deleted successfully',
+        ], 200);
         //
     }
 }

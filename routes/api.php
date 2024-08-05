@@ -32,5 +32,5 @@ Route::get('deletejobpost/{id}', [JobpostController::class, 'destroy']);
 //meeting
 Route::post('createmeeting', [MeetingController::class, 'store']);
 Route::get('viewmeeting', [MeetingController::class, 'index']);
-Route::put('editmeeting/{slug}', [MeetingController::class, 'update']);
+Route::put('editmeeting/{id}', [MeetingController::class, 'update']);
 Route::get('deletemeeting/{id}', [MeetingController::class, 'destroy']);
