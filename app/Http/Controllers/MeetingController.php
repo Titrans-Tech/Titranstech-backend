@@ -21,7 +21,17 @@ class MeetingController extends Controller
      */
     public function store(StoreMeetingRequest $request)
     {
-        //
+        $addmeeting = Meeting::create([
+            'email' => $request->email,
+            'name' => $request->name,
+            'body' => $request->body,
+        ]);
+
+    
+        return response()->json([
+            'meeting' => $addmeeting,
+            'message' => 'You have created job successfully'
+        ], 201);
     }
 
     /**

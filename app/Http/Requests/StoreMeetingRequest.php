@@ -11,7 +11,7 @@ class StoreMeetingRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class StoreMeetingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'email' => ['required', 'string', 'max:255'],
+            'body' => ['required', 'string'],
+            'name' => ['required', 'string'],
         ];
     }
 }

@@ -4,6 +4,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\JobpostController;
+use App\Http\Controllers\MeetingController;
+use App\Models\Jobpost;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -21,4 +24,13 @@ Route::delete('deleteblog/{id}', [BlogController::class, 'destroy']);
 
 // Job
 
-Route::post('createjobs', [BlogController::class, 'store']);
+Route::post('createjobs', [JobpostController::class, 'store']);
+Route::get('viewjobpost', [JobpostController::class, 'index']);
+Route::put('editjobpost/{slug}', [JobpostController::class, 'update']);
+Route::get('deletejobpost/{id}', [JobpostController::class, 'destroy']);
+
+//meeting
+Route::post('createmeeting', [MeetingController::class, 'store']);
+Route::get('viewmeeting', [MeetingController::class, 'index']);
+Route::put('editmeeting/{slug}', [MeetingController::class, 'update']);
+Route::get('deletemeeting/{id}', [MeetingController::class, 'destroy']);
