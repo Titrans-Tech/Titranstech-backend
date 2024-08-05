@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\JobpostController;
 use App\Http\Controllers\MeetingController;
 use App\Models\Jobpost;
@@ -34,3 +35,7 @@ Route::post('createmeeting', [MeetingController::class, 'store']);
 Route::get('viewmeeting', [MeetingController::class, 'index']);
 Route::put('editmeeting/{id}', [MeetingController::class, 'update']);
 Route::get('deletemeeting/{id}', [MeetingController::class, 'destroy']);
+
+//meeting
+
+Route::post('creatcontact', [ContactController::class, 'store']);
