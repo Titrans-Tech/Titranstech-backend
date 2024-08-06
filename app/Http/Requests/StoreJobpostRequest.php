@@ -24,7 +24,6 @@ class StoreJobpostRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'max:255'],
             'body' => ['required', 'string'],
-            'author' => ['required', 'string'],
             'company' => ['required', 'string'],
             // 'images' => 'nullable|mimes:png,jpg,jpeg',
             'images' => 'required|image|mimes:jpeg,png,jpg,gif,svg',

@@ -38,4 +38,4 @@ Route::get('deletemeeting/{id}', [MeetingController::class, 'destroy']);
 
 //meeting
 
-Route::post('creatcontact', [ContactController::class, 'store']);
+Route::post('createcontact', [ContactController::class, 'store']);

@@ -11,6 +11,8 @@ use App\Http\Resources\MeetingResource;
 use Illuminate\Http\Request;
 use Mailjet\Resources;
 use Mailjet\Client;
+// use App\Mail\MeetingFormMail;
+use Illuminate\Support\Facades\Mail;
 
 class MeetingController extends Controller
 {
@@ -33,6 +35,12 @@ class MeetingController extends Controller
             'email' => 'required|email|max:255',
             'body' => 'required|string',
         ]);
+
+
+        // Send the email
+        // Mail::to('simonudo74@gmail.com')->send(new MeetingFormMail($validatedData));
+
+
          $emailContent = [
             'Messages' => [
                 [
@@ -44,10 +52,10 @@ class MeetingController extends Controller
                     'To' => [
                         [
                             'Email' => "info@titranstech.co.uk",
-                            'Name' => "Recipient Name"
+                            'Name' => "Titranstech"
                         ]
                     ],
-                    'Subject' => "New Form Submission",
+                    'Subject' => "New Meeting Form Submission",
                     'TextPart' => "You have received a new form submission.",
                     'HTMLPart' => "<h3>New Form Submission</h3><p><strong>Name:</strong> {$validatedData['name']}</p><p><strong>Email:</strong> {$validatedData['email']}</p><p><strong>Message:</strong> {$validatedData['body']}</p>"
                 ]
@@ -58,12 +66,13 @@ class MeetingController extends Controller
         $mj = new Client(config('services.mailjet.key'), config('services.mailjet.secret'), true, ['version' => 'v3.1']);
         $response = $mj->post(Resources::$Email, ['body' => $emailContent]);
 
-        // Check for a successful response
+       // Check for a successful response
         if ($response->success()) {
             return response()->json(['message' => 'Form submitted successfully and email sent.'], 200);
         } else {
             return response()->json(['message' => 'Failed to send email.'], 500);
         }
+       // return response()->json(['message' => 'Form submitted successfully and email sent.'], 200);
     
     }
 
