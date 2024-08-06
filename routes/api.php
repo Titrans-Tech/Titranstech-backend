@@ -6,6 +6,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\JobpostController;
+use App\Http\Controllers\SubcriberController;
+
 use App\Http\Controllers\MeetingController;
 use App\Models\Jobpost;
 
@@ -37,5 +39,6 @@ Route::put('editmeeting/{id}', [MeetingController::class, 'update']);
 Route::get('deletemeeting/{id}', [MeetingController::class, 'destroy']);
 
 //meeting
-
 Route::post('createcontact', [ContactController::class, 'store']);
+Route::post('createsub', [SubcriberController::class, 'store']);
+
