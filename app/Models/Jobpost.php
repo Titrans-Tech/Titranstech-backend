@@ -16,7 +16,7 @@ class Jobpost extends Model
     protected $fillable = [
         'title',
         'body',
-        'author',
+        'company',
         'slug',
         'images'
     ];

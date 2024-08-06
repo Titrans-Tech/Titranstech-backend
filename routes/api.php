@@ -29,6 +29,7 @@ Route::delete('deleteblog/{id}', [BlogController::class, 'destroy']);
 
 Route::post('createjobs', [JobpostController::class, 'store']);
 Route::get('viewjobpost', [JobpostController::class, 'index']);
+Route::get('viewsinglejobpost/{slug}', [JobpostController::class, 'show']);
 Route::put('editjobpost/{slug}', [JobpostController::class, 'update']);
 Route::get('deletejobpost/{id}', [JobpostController::class, 'destroy']);
 
