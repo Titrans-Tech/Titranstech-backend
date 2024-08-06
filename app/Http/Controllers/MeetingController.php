@@ -72,7 +72,6 @@ class MeetingController extends Controller
         } else {
             return response()->json(['message' => 'Failed to send email.'], 500);
         }
-       // return response()->json(['message' => 'Form submitted successfully and email sent.'], 200);
     
     }
 
