@@ -12,7 +12,7 @@ class Jobpost extends Model
 {
     use HasFactory, Sluggable, Notifiable, HasApiTokens;
     
-
+// bridbotb_brixton  
     protected $fillable = [
         'title',
         'body',

@@ -22,7 +22,7 @@ class MeetingFormMail extends Mailable
     public function build()
     {
         return $this->from('Info@titranstech.co.uk')
-                    ->subject('Contact Form Submission')
+                    ->subject('Meeting Form Submission')
                     ->view('emails.contact')
                     ->with('data', $this->data);
     }

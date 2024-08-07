@@ -9,9 +9,9 @@ use App\Http\Resources\MeetingCollection;
 use App\Http\Resources\MeetingResource;
 
 use Illuminate\Http\Request;
-use Mailjet\Resources;
-use Mailjet\Client;
-// use App\Mail\MeetingFormMail;
+// use Mailjet\Resources;
+// use Mailjet\Client;
+use App\Mail\MeetingFormMail;
 use Illuminate\Support\Facades\Mail;
 
 class MeetingController extends Controller
@@ -38,40 +38,49 @@ class MeetingController extends Controller
 
 
         // Send the email
-        // Mail::to('simonudo74@gmail.com')->send(new MeetingFormMail($validatedData));
+       $deliver =  Mail::to('Info@titranstech.co.uk')->send(new MeetingFormMail($validatedData));
 
 
-         $emailContent = [
-            'Messages' => [
-                [
-                    'From' => [
-                        'Email' => $request->email,
-                        'Name' => $request->name,
-                        'Body' => $request->body,
-                    ],
-                    'To' => [
-                        [
-                            'Email' => "info@titranstech.co.uk",
-                            'Name' => "Titranstech"
-                        ]
-                    ],
-                    'Subject' => "New Meeting Form Submission",
-                    'TextPart' => "You have received a new form submission.",
-                    'HTMLPart' => "<h3>New Form Submission</h3><p><strong>Name:</strong> {$validatedData['name']}</p><p><strong>Email:</strong> {$validatedData['email']}</p><p><strong>Message:</strong> {$validatedData['body']}</p>"
-                ]
-            ]
-        ];
+    //      $emailContent = [
+    //         'Messages' => [
+    //             [
+    //                 'From' => [
+    //                     'Email' => $request->email,
+    //                     'Name' => $request->name,
+    //                     'Body' => $request->body,
+    //                 ],
+    //                 'To' => [
+    //                     [
+    //                         'Email' => "info@titranstech.co.uk",
+    //                         'Name' => "Titranstech"
+    //                     ]
+    //                 ],
+    //                 'Subject' => "New Meeting Form Submission",
+    //                 'TextPart' => "You have received a new form submission.",
+    //                 'HTMLPart' => "<h3>New Form Submission</h3><p><strong>Name:</strong> {$validatedData['name']}</p><p><strong>Email:</strong> {$validatedData['email']}</p><p><strong>Message:</strong> {$validatedData['body']}</p>"
+    //             ]
+    //         ]
+    //     ];
 
-        // Send the email using Mailjet
-        $mj = new Client(config('services.mailjet.key'), config('services.mailjet.secret'), true, ['version' => 'v3.1']);
-        $response = $mj->post(Resources::$Email, ['body' => $emailContent]);
+    //     // Send the email using Mailjet
+    //     $mj = new Client(config('services.mailjet.key'), config('services.mailjet.secret'), true, ['version' => 'v3.1']);
+    //     $response = $mj->post(Resources::$Email, ['body' => $emailContent]);
 
-       // Check for a successful response
-        if ($response->success()) {
-            return response()->json(['message' => 'Form submitted successfully and email sent.'], 200);
-        } else {
-            return response()->json(['message' => 'Failed to send email.'], 500);
-        }
+    //    // Check for a successful response
+    //     if ($response->success()) {
+    //         return response()->json(['message' => 'Form submitted successfully and email sent.'], 200);
+    //     } else {
+    //         return response()->json(['message' => 'Failed to send email.'], 500);
+    //     }
+
+    if ($deliver) {
+        return response()->json(['message' => 'Form submitted successfully and email sent.'], 200);
+
+    }else{
+        return response()->json(['message' => 'Form not submitted successfully and email sent.']);
+
+    }
+
     
     }
 
