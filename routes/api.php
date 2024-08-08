@@ -17,7 +17,7 @@ use App\Models\Jobpost;
 // })->middleware('auth:sanctum');
 
 
-
+Route::getRoutes();
 Route::get('/', [ApiController::class, 'index']);
 Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
@@ -30,14 +30,15 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('createblog', [BlogController::class, 'store']);
     Route::get('blogtables', [BlogController::class, 'index']);
     Route::get('viewsingleblog/{slug}', [BlogController::class, 'show']);
-    Route::put('editblog/{id}', [BlogController::class, 'update']);
+    // Route::put('editblog/{id}', [BlogController::class, 'update']);
+    Route::put('/blogs/{id}', [BlogController::class, 'update']);
     Route::delete('deleteblog/{id}', [BlogController::class, 'destroy']);
     Route::post('createjobs', [JobpostController::class, 'store']);
 // titrans  aOUVNhGueePI
     Route::get('viewjobpost', [JobpostController::class, 'index']);
     Route::get('viewsinglejobpost/{slug}', [JobpostController::class, 'show']);
     Route::put('editjobpost/{slug}', [JobpostController::class, 'update']);
-    Route::get('deletejobpost/{id}', [JobpostController::class, 'destroy']);
+    Route::delete('deletejob/{id}', [JobpostController::class, 'destroy']);
 
     //meeting
     Route::get('viewmeeting', [MeetingController::class, 'index']);

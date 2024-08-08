@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class MeetingFormMail extends Mailable
+class ContactMail extends Mailable
 {
     use Queueable, SerializesModels;
     public $data;
@@ -23,7 +23,7 @@ class MeetingFormMail extends Mailable
     {
         return $this->from('Info@titranstech.co.uk')
                     ->subject('Meeting Form Submission')
-                    ->view('emails.meeting')
+                    ->view('emails.contact')
                     ->with('data', $this->data);
     }
     

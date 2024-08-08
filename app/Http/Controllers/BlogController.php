@@ -73,14 +73,14 @@ class BlogController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $edit_blog = Blog::findOrFail($id);
 
         $request->validate([
             'title' => 'required|string|max:255',
             'body' => 'nullable|string',
             'author' => 'nullable|string',
-            'images' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            'images' => 'required|mimes:jpeg,png,jpg,gif,svg',
         ]);
+        $edit_blog = Blog::findOrFail($id);
 
         if ($request->hasFile('images')){
             $file = $request['images'];
@@ -95,7 +95,7 @@ class BlogController extends Controller
         $edit_blog->title = $request->title;
         $edit_blog->author = $request->author;
         $edit_blog->body = $request->body;
-        $edit_blog->update();
+        $edit_blog->save();
 
         return response()->json([
             'message' => 'Blog updated successfully',

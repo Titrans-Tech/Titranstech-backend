@@ -89,7 +89,7 @@ class JobpostController extends Controller
         return response()->json([
             'blog' => $edit_job,
             'message' => 'You have created job successfully'
-        ], 201);
+        ], 200);
     }
 
     /**
