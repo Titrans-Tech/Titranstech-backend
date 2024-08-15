@@ -63,11 +63,11 @@ class JobpostController extends Controller
     /**
      * Update the specified resource in storage.Jobpost $jobpost
      */
-    public function update(UpdateJobpostRequest $request, $slug)
+    public function update(Request $request, $id)
     {
-        $edit_job = Jobpost::where('slug', $slug)->first();
+        $edit_job = Jobpost::findOrFail($id);
         
-        $edit_job = Jobpost::validate([
+        $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'body' => ['required', 'string'],
             'company' => ['required', 'string'],
@@ -83,12 +83,15 @@ class JobpostController extends Controller
            $path = 'noimage'; 
         }
 
-       
+        $edit_job->title = $request->title;
+        $edit_job->company = $request->company;
+        $edit_job->body = $request->body;
+        $edit_job->save();
 
         // $path = $request->file('images')->store('images', 'public');
         return response()->json([
             'blog' => $edit_job,
-            'message' => 'You have created job successfully'
+            'message' => 'You have updated job successfully'
         ], 200);
     }
 

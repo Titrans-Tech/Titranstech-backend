@@ -23,7 +23,7 @@ Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
 Route::post('createmeeting', [MeetingController::class, 'store']);
 Route::post('createcontact', [ContactController::class, 'store']);
-Route::post('createsub', [SubcriberController::class, 'store']);
+Route::post('createsubcription', [SubcriberController::class, 'store']);
 
 Route::group(['prefix' => 'auth'], function () {
     Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
@@ -34,10 +34,10 @@ Route::group(['prefix' => 'auth'], function () {
     Route::put('/blogs/{id}', [BlogController::class, 'update']);
     Route::delete('deleteblog/{id}', [BlogController::class, 'destroy']);
     Route::post('createjobs', [JobpostController::class, 'store']);
-// titrans  aOUVNhGueePI
+
     Route::get('viewjobpost', [JobpostController::class, 'index']);
     Route::get('viewsinglejobpost/{slug}', [JobpostController::class, 'show']);
-    Route::put('editjobpost/{slug}', [JobpostController::class, 'update']);
+    Route::put('jobposts/{id}', [JobpostController::class, 'update']);
     Route::delete('deletejob/{id}', [JobpostController::class, 'destroy']);
 
     //meeting

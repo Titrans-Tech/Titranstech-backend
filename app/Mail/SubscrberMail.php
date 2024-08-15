@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class WelcomeMail extends Mailable
+class SubscrberMail extends Mailable
 {
     use Queueable, SerializesModels;
     public $data;
@@ -19,18 +19,11 @@ class WelcomeMail extends Mailable
         $this->data = $data;
     }
 
-
     public function build()
     {
-        return $this->subject('Welcoome to our Newsletter')
-                    ->view('emails.welcome')
+        return $this->from('Info@titranstech.co.uk')
+                    ->subject('Subscriber form submitted')
+                    ->view('emails.subscriber')
                     ->with('data', $this->data);
     }
-    
-
-    // public function build()
-    // {
-    //     return $this->subject('Welcome to Our Newsletter')
-    //                 ->view('emails.welcome');
-    // }
 }

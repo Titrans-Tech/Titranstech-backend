@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Mail\WelcomeMail;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Subcriber;
+use Illuminate\Http\Request;
+
 use App\Http\Requests\StoreSubcriberRequest;
 use App\Http\Requests\UpdateSubcriberRequest;
+use App\Mail\WelcomeMail;
 
 class SubcriberController extends Controller
 {
@@ -19,20 +21,21 @@ class SubcriberController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreSubcriberRequest $request)
+    public function store(Request $request)
     {
-        $request->validate([
-            'email' => 'required|email|unique:subcribers,email',
+        $validatedData = $request->validate([
+            'email' => 'required',
         ]);
 
-        $subcriber = Subcriber::create([
-            'email' => $request->email,
-        ]);
-        Mail::to($subcriber->email)->send(new WelcomeMail());
-        return response()->json([
-            'message' => 'Subscription successful.',
-            'subcriber' => $subcriber,
-        ], 201);
+        $deliver = Mail::to('Info@titranstech.co.uk')->send(new WelcomeMail($validatedData));
+        // Mail::to($subcriber->email)->send(new WelcomeMail());
+        if ($deliver) {
+            return response()->json(['message' => 'Form submitted successfully and email sent.'], 200);
+    
+        }else{
+            return response()->json(['message' => 'Form not submitted successfully and email sent.']);
+    
+        }
     }
 
     /**
@@ -49,6 +52,7 @@ class SubcriberController extends Controller
     public function update(UpdateSubcriberRequest $request, Subcriber $subcriber)
     {
         //
+
     }
 
     /**
