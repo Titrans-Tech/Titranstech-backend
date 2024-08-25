@@ -35,7 +35,11 @@ class MeetingController extends Controller
             'email' => 'required|email|max:255',
             'body' => 'required|string',
         ]);
-
+          Meeting::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'body' => $request->body,
+          ]);   
 
         // Send the email
        $deliver =  Mail::to('Info@titranstech.co.uk')->send(new MeetingFormMail($validatedData));

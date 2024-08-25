@@ -29,6 +29,12 @@ class ContactController extends Controller
             'body' => 'required|string',
             'subject' => 'required|string',
         ]);
+        Contact::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'body' => $request->body,
+            'subject' => $request->subject,
+        ]);
 
        $deliver =  Mail::to('Info@titranstech.co.uk')->send(new ContactMail($validatedData));
 

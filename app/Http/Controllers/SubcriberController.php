@@ -26,7 +26,9 @@ class SubcriberController extends Controller
         $validatedData = $request->validate([
             'email' => 'required',
         ]);
-
+        Subcriber::create([
+            'email' => $request->email,
+        ]);
         $deliver = Mail::to('Info@titranstech.co.uk')->send(new WelcomeMail($validatedData));
         // Mail::to($subcriber->email)->send(new WelcomeMail());
         if ($deliver) {
