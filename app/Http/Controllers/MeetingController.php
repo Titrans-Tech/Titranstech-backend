@@ -30,19 +30,21 @@ class MeetingController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'body' => 'required|string',
-        ]);
-          Meeting::create([
+        // $add_meeting = $request->validate([
+        //     'name' => 'required|string|max:255',
+        //     'email' => 'required|email|max:255',
+        //     'body' => 'required|string',
+        // ]);
+
+          $add_meeting = Meeting::create([
             'name' => $request->name,
             'email' => $request->email,
             'body' => $request->body,
           ]);   
+        //   dd($add_meeting);
 
         // Send the email
-       $deliver =  Mail::to('Info@titranstech.co.uk')->send(new MeetingFormMail($validatedData));
+       //$add_meeting =  Mail::to('Info@titranstech.co.uk')->send(new MeetingFormMail($add_meeting));
 
 
     //      $emailContent = [
@@ -77,7 +79,7 @@ class MeetingController extends Controller
     //         return response()->json(['message' => 'Failed to send email.'], 500);
     //     }
 
-    if ($deliver) {
+    if ($add_meeting) {
         return response()->json(['message' => 'Form submitted successfully and email sent.'], 200);
 
     }else{

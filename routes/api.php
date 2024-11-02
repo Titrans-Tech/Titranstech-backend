@@ -10,6 +10,8 @@ use App\Http\Controllers\SubcriberController;
 
 use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\FreetrainingController;
+use App\Http\Controllers\StudentController;
 use App\Models\Jobpost;
 
 // Route::get('/user', function (Request $request) {
@@ -24,6 +26,8 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('createmeeting', [MeetingController::class, 'store']);
 Route::post('createcontact', [ContactController::class, 'store']);
 Route::post('createsubcription', [SubcriberController::class, 'store']);
+Route::post('createstudent', [StudentController::class, 'createstudent']);
+Route::post('freetrainings', [FreetrainingController::class, 'createsfreestraining']);
 
 Route::group(['prefix' => 'auth'], function () {
     Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');

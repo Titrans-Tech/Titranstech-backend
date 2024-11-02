@@ -23,20 +23,20 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $add_contact = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'body' => 'required|string',
             'subject' => 'required|string',
         ]);
-        Contact::create([
+        $add_contact = Contact::create([
             'name' => $request->name,
             'email' => $request->email,
             'body' => $request->body,
             'subject' => $request->subject,
         ]);
 
-       $deliver =  Mail::to('Info@titranstech.co.uk')->send(new ContactMail($validatedData));
+       $add_contact =  Mail::to('Info@titranstech.co.uk')->send(new ContactMail($add_contact));
 
         // Send the email
         // Mail::to('simonudo74@gmail.com')->send(new MeetingFormMail($validatedData));
@@ -76,7 +76,7 @@ class ContactController extends Controller
     //     }
 
 
-    if ($deliver) {
+    if ($add_contact) {
         return response()->json(['message' => 'Form submitted successfully and email sent.'], 200);
 
     }else{

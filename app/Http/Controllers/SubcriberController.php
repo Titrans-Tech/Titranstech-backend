@@ -23,15 +23,15 @@ class SubcriberController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $addsubs = $request->validate([
             'email' => 'required',
         ]);
-        Subcriber::create([
+        $addsubs = Subcriber::create([
             'email' => $request->email,
         ]);
-        $deliver = Mail::to('Info@titranstech.co.uk')->send(new WelcomeMail($validatedData));
+        $addsubs = Mail::to('Info@titranstech.co.uk')->send(new WelcomeMail($addsubs));
         // Mail::to($subcriber->email)->send(new WelcomeMail());
-        if ($deliver) {
+        if ($addsubs) {
             return response()->json(['message' => 'Form submitted successfully and email sent.'], 200);
     
         }else{
