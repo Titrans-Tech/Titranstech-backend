@@ -48,5 +48,4 @@ Route::group(['prefix' => 'auth'], function () {
     Route::get('viewmeeting', [MeetingController::class, 'index']);
     Route::put('editmeeting/{id}', [MeetingController::class, 'update']);
     Route::get('deletemeeting/{id}', [MeetingController::class, 'destroy']);
-
 });

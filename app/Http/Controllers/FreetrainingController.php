@@ -6,9 +6,13 @@ use App\Models\Freetraining;
 use Illuminate\Http\Request;
 use App\Notifications\FormSubmitted; // Create this notification
 use App\Mail\UserNotificationMail;
+use App\Mail\TestMail;
 
 use Illuminate\Support\Facades\Mail;
 use Notification;
+
+
+
 class FreetrainingController extends Controller
 {
     //
@@ -19,12 +23,12 @@ class FreetrainingController extends Controller
          'phone' => ['required', 'string'],
          'email' => ['required', 'string'],
          'gender' => ['required', 'string'],
-         'course' => ['required', 'string'],
-         'dob' => ['required', 'string'],
-         'degree_obtain' => ['required', 'string'],
-         'school_name' => ['required', 'string'],
-         'year_graduate' => ['required', 'string'],
-         'country' => ['required', 'string'],
+         'course' => ['nullable', 'string'],
+         'dob' => ['nullable', 'string'],
+         'degree_obtain' => ['nullable', 'string'],
+         'school_name' => ['nullable', 'string'],
+         'year_graduate' => ['nullable', 'string'],
+         'country' => ['nullable', 'string'],
          
         ]);
          $user = Freetraining::create([
@@ -47,6 +51,9 @@ class FreetrainingController extends Controller
         'lname' => $user->lname
     ]));
 
+    // Send the email
+    //Mail::to($user->email)->send(new TestMail($user));
+
  
      
      if ($user) {
@@ -57,4 +64,7 @@ class FreetrainingController extends Controller
  
      }
 }
+
+
+
 }
