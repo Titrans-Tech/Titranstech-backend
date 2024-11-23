@@ -34,3 +34,4 @@ class UserNotificationMail extends Mailable
                     ->with('data', $this->userData);
     }
 }
+

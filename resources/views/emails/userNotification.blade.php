@@ -7,10 +7,10 @@
     <title>Titrans Technology Registration Notification</title>
 </head>
 <body>
-    <h1>Hi, {{ $data['fname'] }} {{ $data['lname'] }}</h1>
+    <h1>Hi, {{ $validated['fname'] }} {{ $validated['name'] }}</h1>
+    <p>Thank you for registering!</p>
     <p>Thank you for registering with us at Titrans Technology 🎉 We’re thrilled to welcome you to our Skill Nigeria Training program, designed to help you build valuable skills and kickstart your career.</p>
-    <p>Here’s what you can look forward to:
-    </p>
+    <p>Here’s what you can look forward to: </p>
     <p><b>Comprehensive Training:</b> Our courses cover everything you need to build a strong foundation in Web development, Product Management, Data Analysis, and UI/UX.
     </p>
     <p><b>Hands-On Practice: </b>You’ll work on real-life projects to gain practical experience and build confidence in your skills.</p>

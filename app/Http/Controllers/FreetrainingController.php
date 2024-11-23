@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use App\Notifications\FormSubmitted; // Create this notification
 use App\Mail\UserNotificationMail;
 use App\Mail\TestMail;
-
+use Illuminate\Support\Facades\Http;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
 use Illuminate\Support\Facades\Mail;
 use Notification;
 
@@ -15,55 +17,111 @@ use Notification;
 
 class FreetrainingController extends Controller
 {
-    //
-    public function createsfreestraining(Request $request){
-        $request->validate([
-         'fname' => ['required', 'string'],
-         'lname' => ['required', 'string'],
-         'phone' => ['required', 'string'],
-         'email' => ['required', 'string'],
-         'gender' => ['required', 'string'],
-         'course' => ['nullable', 'string'],
-         'dob' => ['nullable', 'string'],
-         'degree_obtain' => ['nullable', 'string'],
-         'school_name' => ['nullable', 'string'],
-         'year_graduate' => ['nullable', 'string'],
-         'country' => ['nullable', 'string'],
-         
+    public function createsfreestraining(Request $request) {
+        $validated = $request->validate([
+            'email' => ['required', 'string', 'unique:freetrainings'],
+            'phone' => ['required', 'string', 'unique:freetrainings'],
+            'fname' => ['required', 'string'],
+
+            'lname' => ['required', 'string'],
+            'gender' => ['required', 'string'],
+            'course' => ['nullable', 'string'],
+            'dob' => ['nullable', 'string'],
+            'degree_obtain' => ['nullable', 'string'],
+            'school_name' => ['nullable', 'string'],
+            'year_graduate' => ['nullable', 'string'],
+            'country' => ['nullable', 'string'],
         ]);
-         $user = Freetraining::create([
-         'fname' => $request->fname,
-         'email' => $request->email,
-         'lname' => $request->lname,
-         'phone' => $request->phone,
-         'gender' => $request->gender,
-         'dob' => $request->dob,
-         'school_name' => $request->school_name,
-         'year_graduate' => $request->year_graduate,
-         'country' => $request->country,
-         'degree_obtain' => $request->degree_obtain,
-         'course' => $request->course,
-     ]);   
+
+        Freetraining::create([
+            'fname' => $validated['fname'],
+            'email' => $validated['email'],
+            'lname' => $validated['lname'],
+            'phone' => $validated['phone'],
+            'gender' => $validated['gender'],
+            'dob' => $validated['dob'],
+            'school_name' => $validated['school_name'],
+            'year_graduate' => $validated['year_graduate'],
+            'country' => $validated['country'],
+            'degree_obtain' => $validated['degree_obtain'],
+            'course' => $validated['course'],
+        ]); 
+       
     
-     Mail::to($user->email)->send(new UserNotificationMail(
-        [
-        'fname' => $user->fname,
-        'lname' => $user->lname
-    ]));
+       
+        // Mailtrap API payload
+        $payload = [
+            'from' => [
+                'email' => config('mail.from.address', env('MAILTRAP_FROM_EMAIL')),
+                'name' => config('mail.from.name', env('MAILTRAP_FROM_NAME')),
+            ],
+            'to' => [
+                ['email' => $validated['email']],
+            ],
+            'template_uuid' => 'e9792245-31c0-49d1-be8a-2b6c6a27ce91',
+            'template_variables' => [
+                'fname' => $validated['fname'],
+                'lname' => $validated['lname'],
+                // 'user_name' => $validated['simon'],
+                // 'next_step_link' => $validated['simon'],
+                // 'get_started_link' => $validated['simon'],
+                // 'onboarding_video_link' => $validated['simon'],
+            ],
+        ];
 
-    // Send the email
-    //Mail::to($user->email)->send(new TestMail($user));
+       
 
- 
-     
-     if ($user) {
-        return response()->json(['message' => 'You have registered successfully.'], 201);
+
+        // Send email via Mailtrap API
+        $response = Http::withToken('572c9443e4748848a61e8e1f9bab53e3')
+            ->withHeaders(['Content-Type' => 'application/json'])
+            ->post('https://send.api.mailtrap.io/api/send', $payload);
+
+        // Check response
+
+        // return response()->json([
+        //     'go' => $validated,
+        //     'data' => $data
+        // ]);
+        // Mail::to($validated['email'])->send(new UserNotificationMail(
+        //     [
+        //     'fname' => $validated['fname'],
+        //     'lname' => $validated['lname']
+        //     ]));
+
+        if ($response) {
+
+            
+        return response()->json(['message' => 'Thank you for registering for our upcoming SKILL UP NIGERIA TRAINING PROGRAMME'], 200);
 
      }else{
          return response()->json(['message' => 'You have not submitted your form successfully']);
  
      }
-}
+   }
+
+    
+
+    
+    //  Mail::to($user->email)->send(new UserNotificationMail(
+    //     [
+    //     'fname' => $user->fname,
+    //     'lname' => $user->lname
+    // ]));
+
+    // Send the email
+    
+    // Mail::to($user->email)->send(new UserNotificationMail($user));
+
+    // if ($user) {
+    //     return response()->json(['message' => 'You have registered successfully.'], 201);
+
+    //  }else{
+    //      return response()->json(['message' => 'You have not submitted your form successfully']);
+ 
+    //  }
+     
+     
 
 
 
