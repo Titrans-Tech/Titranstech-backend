@@ -98,11 +98,19 @@ class FreetrainingController extends Controller
          return response()->json(['message' => 'You have not submitted your form successfully']);
  
      }
+
+
+
    }
 
     
 
     
+
+   public function viewfreetraining(){
+    $view_frees = Freetraining::latest()->get();
+    return view('dashboard.admin.viewfreetraining', compact('view_frees'));
+ }
     //  Mail::to($user->email)->send(new UserNotificationMail(
     //     [
     //     'fname' => $user->fname,

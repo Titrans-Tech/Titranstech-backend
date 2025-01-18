@@ -15,64 +15,70 @@ class BlogController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+
+     public function addblog(){
+
+        return view('dashboard.admin.addblog');
+     }
+    public function viewblog()
     {
         
         $view_blogs = Blog::latest()->get();
-        return new BlogCollection($view_blogs);
-        // return response()->json([
-        //     'blog' => $view_blogs,
-        // ], 200);
+        // return new BlogCollection($view_blogs);
+        return view('dashboard.admin.viewblog', compact('view_blogs'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreBlogRequest $request)
+    public function store(Request $request)
     {
-        //
-        $add_blog = Blog::create([
-            'title' => $request->title,
-            'body' => $request->body,
-            'author' => $request->author,
-            'slug' => SlugService::createSlug(Blog::class, 'slug', $request->title),
-            
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'body' => 'required|string',
+            'author' => 'required|string|max:255',
+            'images' => 'nullable|mimes:jpeg,png,jpg,gif,svg',
         ]);
 
-        if ($request->hasFile('images')){
-            $file = $request['images'];
+        $slug = SlugService::createSlug(Blog::class, 'slug', $request->title);
+
+        $path = 'noimage';
+        if ($request->hasFile('images')) {
+            $file = $request->file('images');
             $filename = 'SimonJonah-' . time() . '.' . $file->getClientOriginalExtension();
-            $path = $request->file('images')->storeAs('resourceimages', $filename);
-        }else{
-           $path = 'noimage'; 
+            $path = $file->storeAs('resourceimages', $filename);
         }
+        $add_blog = new Blog();
+            $add_blog->title = $request->title;
+            $add_blog->body = $request->body;
+            $add_blog->author = $request->author;
+             $add_blog->slug = $slug;
+             $add_blog->images = $path;
+             $add_blog->save();
 
-        $add_blog['images'] = $path;
-
-        // $path = $request->file('images')->store('images', 'public');
-        return response()->json([
-            // 'blog' => $add_blog,
-            'path' => $path,
-            'message' => 'You have created blog successfully'
-        ], 201);
-
-
+        return redirect()->back()->with('message', 'Blog added successfully');
     }
-
+    
     /**
      * Display the specified resource.
      */
     public function show($slug)
     {
         $viewsingle_blog = Blog::where('slug', $slug)->first();
-        return new BlogResource($viewsingle_blog);
+
+        return view('dashboard.admin.viewsingleblog', compact('viewsingle_blog'));
     }
 
+
+    public function ediblog($slug){
+        $edit_blog = Blog::where('slug', $slug)->first();
+        return view('dashboard.admin.editblog', compact('edit_blog'));
+    }
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $slug){
+        $edit_blog = Blog::where('slug', $slug)->first();
 
         $request->validate([
             'title' => 'required|string|max:255',
@@ -80,8 +86,8 @@ class BlogController extends Controller
             'author' => 'nullable|string',
             'images' => 'required|mimes:jpeg,png,jpg,gif,svg',
         ]);
-        $edit_blog = Blog::findOrFail($id);
-
+        // $edit_blog = Blog::findOrFail($id);
+        // dd($request);
         if ($request->hasFile('images')){
             $file = $request['images'];
             $filename = 'SimonJonah-' . time() . '.' . $file->getClientOriginalExtension();
@@ -95,12 +101,9 @@ class BlogController extends Controller
         $edit_blog->title = $request->title;
         $edit_blog->author = $request->author;
         $edit_blog->body = $request->body;
-        $edit_blog->save();
+        $edit_blog->update();
 
-        return response()->json([
-            'message' => 'Blog updated successfully',
-            'blog' => $edit_blog
-        ], 200);
+        return redirect()->back()->with('message', 'You updated the blog succesffuly');
     }
 
     /**
@@ -111,8 +114,7 @@ class BlogController extends Controller
         $blog = Blog::findOrFail($id);
         $blog->delete();
 
-        return response()->json([
-            'message' => 'blog deleted successfully',
-        ], 200);
+        return redirect()->back()->with('message', 'You updated the blog succesffuly');
+
     }
 }
