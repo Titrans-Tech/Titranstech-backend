@@ -31,19 +31,19 @@
 
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">DataTable with default features</h3>
+                {{-- <h3 class="card-title">DataTable with default features</h3> --}}
               </div>
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>Project Name</th>
-                   
+                    <th>Compmany</th>
+                    <th>Compmany Website</th>
+                    <th>Title</th>
                     <th>Images</th>
-                   
+                    <th>View</th>
                     <th>Edit</th>
-                  
                     <th>Delete</th>
                     <th>Date</th>
                   </tr>
@@ -59,38 +59,41 @@
                   <div class="alert alert-danger">
                   {{ Session::get('fail') }}
                   @endif
-                  @foreach ($view_projects as $view_project)
+                  @foreach ($view_jobs as $view_job)
                     <tr>
                         
-                        <td>{{ $view_project->project_name }}</td>
-                        
-                        <td><img style="width: auto; height: 30px;" src="{{ URL::asset("/public/../$view_project->images")}}" alt=""></td>
-
-                        
-                       <td><a href="{{ url('admin/ediproject/'.$view_project->id) }}"
+                        <td>{{ $view_job->company }}</td>
+                        <td><a href="{{ $view_job->company_url }}" target="_blank" rel="noopener noreferrer">{{ $view_job->company_url }}</a></td>
+                        <td>{{ $view_job->title }}</td>
+                        <td><img style="width: auto; height: 30px;" src="{{ URL::asset("/public/../$view_job->images")}}" alt=""></td>
+                       <td><a href="{{ url('admin/job/show/'.$view_job->slug) }}"
                         class='btn btn-success'>
-                         <i class="far fa-edit"></i>
+                         <i class="far fa-eye"></i>
                      </a></td>
+                     <td><a href="{{ url('admin/editjob/'.$view_job->slug) }}"
+                      class='btn btn-warning'>
+                       <i class="far fa-edit"></i>
+                   </a></td>
 
-                       <td><a href="{{ url('admin/deleteproject/'.$view_project->id) }}"
+                       <td><a href="{{ url('admin/job/destroy/'.$view_job->id) }}"
                         class='btn btn-danger'>
                          <i class="far fa-trash-alt"></i>
                      </a></td>
-                     <td>{{ $view_project->created_at->format('D d, M Y, H:i')}}</td>
+                     <td>{{ $view_job->created_at->format('D d, M Y, H:i')}}</td>
                     </tr>
                     @endforeach
                   </tbody>
                   <tfoot>
-                   <tr>
-                    <th>Project Name</th>
-                   
-                    <th>Images</th>
-                   
-                    <th>Edit</th>
-                  
-                    <th>Delete</th>
-                    <th>Date</th>
-                  </tr>
+                    <tr>
+                        <th>Compmany</th>
+                        <th>Compmany Website</th>
+                        <th>Title</th>
+                        <th>Images</th>
+                        <th>View</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                        <th>Date</th>
+                      </tr>
                   </tfoot>
                 </table>
               </div>

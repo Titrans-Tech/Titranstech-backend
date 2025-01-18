@@ -62,32 +62,14 @@ class FreetrainingController extends Controller
             'template_variables' => [
                 'fname' => $validated['fname'],
                 'lname' => $validated['lname'],
-                // 'user_name' => $validated['simon'],
-                // 'next_step_link' => $validated['simon'],
-                // 'get_started_link' => $validated['simon'],
-                // 'onboarding_video_link' => $validated['simon'],
             ],
         ];
 
        
-
-
         // Send email via Mailtrap API
         $response = Http::withToken('572c9443e4748848a61e8e1f9bab53e3')
             ->withHeaders(['Content-Type' => 'application/json'])
             ->post('https://send.api.mailtrap.io/api/send', $payload);
-
-        // Check response
-
-        // return response()->json([
-        //     'go' => $validated,
-        //     'data' => $data
-        // ]);
-        // Mail::to($validated['email'])->send(new UserNotificationMail(
-        //     [
-        //     'fname' => $validated['fname'],
-        //     'lname' => $validated['lname']
-        //     ]));
 
         if ($response) {
 
@@ -98,8 +80,6 @@ class FreetrainingController extends Controller
          return response()->json(['message' => 'You have not submitted your form successfully']);
  
      }
-
-
 
    }
 

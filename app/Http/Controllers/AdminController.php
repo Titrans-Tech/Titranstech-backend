@@ -6,6 +6,10 @@ use App\Models\Admin;
 use App\Models\Blog;
 use App\Models\Contact;
 use App\Models\Freetraining;
+use App\Models\Jobpost;
+use App\Models\Meeting;
+use App\Models\Student;
+use App\Models\Subcriber;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -47,6 +51,18 @@ class AdminController extends Controller
         $countcontact = Contact::count();
         $view_trainings = Freetraining::latest()->take(10)->get();
         $view_blogs = Blog::latest()->take(10)->get();
-        return view('dashboard.admin.home', compact('view_blogs', 'view_trainings', 'freetrainingcount', 'countblogs', 'countcontact'));
+        $countjobs = Jobpost::count();
+        $countmeet = Meeting::count();
+        $countstudent = Student::count();
+        $view_jobs = Jobpost::latest()->take(10)->get();
+        $view_contacts = Contact::latest()->take(10)->get();
+        $view_subs = Subcriber::latest()->take(10)->get();
+
+        return view('dashboard.admin.home', compact('view_subs', 'view_contacts', 'view_jobs', 'countstudent', 'countmeet', 'countjobs', 'view_blogs', 'view_trainings', 'freetrainingcount', 'countblogs', 'countcontact'));
+    }
+
+    public function logout(){
+        Auth::guard('admin')->logout();
+        return redirect()->route('admin.login');
     }
 }

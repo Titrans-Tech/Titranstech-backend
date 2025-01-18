@@ -17,6 +17,8 @@ return new class extends Migration
             $table->text('body')->nullable();
             $table->string('company')->nullable();
             $table->text('images')->nullable();
+            $table->text('company_url')->nullable();
+            
             $table->string('slug')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();

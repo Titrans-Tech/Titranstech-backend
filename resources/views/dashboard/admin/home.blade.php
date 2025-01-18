@@ -65,7 +65,7 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">Jobs</span>
-                <span class="info-box-number">4</span>
+                <span class="info-box-number">{{ $countjobs }}</span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -82,7 +82,7 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">Meetings</span>
-                <span class="info-box-number">2</span>
+                <span class="info-box-number">{{ $countmeet }}</span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -97,7 +97,7 @@
               <span class="info-box-icon bg-info elevation-1"><i class="fas fa-copy"></i></span>
               <div class="info-box-content">
                 <span class="info-box-text">Students</span>
-                <span class="info-box-number">0</span>
+                <span class="info-box-number">{{ $countstudent }}</span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -141,7 +141,7 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer text-center">
-                  <a href="{{ url('admin/viewdistributorsadmin') }}">View All Distributors</a>
+                  <a href="{{ url('admin/viewfreetrainer') }}">View All Free Students </a>
                 </div>
                 <!-- /.card-footer -->
               </div>
@@ -168,14 +168,11 @@
                   @foreach ($view_blogs as $view_blog)
                   <li>
                     <img src="{{ URL::asset("/public/../$view_blog->images")}}" alt="User Image">
-                    <a class="users-list-name" href="{{ url('admin/viewsingledistributor/'.$view_blog->ref_no) }}">{{ $view_blog->fname }} {{ $view_blog->lname }}</a>
+                    <a class="users-list-name" href="{{ url('admin/show/'.$view_blog->slug) }}">{{ $view_blog->fname }} {{ $view_blog->lname }}</a>
                     <span class="users-list-date">{{ $view_blog->created_at->diffForHumans() }}</span>
                   </li>
                   @endforeach
-                  
-                  
                 </ul>
-                <!-- /.users-list -->
               </div>
               <!-- /.card-body -->
               <div class="card-footer text-center">
@@ -196,10 +193,10 @@
                 <!-- USERS LIST -->
                 <div class="card">
                   <div class="card-header">
-                    <h3 class="card-title">Latest Teams</h3>
+                    <h3 class="card-title">Latest Jobs</h3>
 
                     <div class="card-tools">
-                      <span class="badge badge-danger">Teams</span>
+                      <span class="badge badge-danger">Jobs</span>
                       <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                       </button>
                       <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
@@ -209,11 +206,11 @@
                   <!-- /.card-header -->
                   <div class="card-body p-0">
                     <ul class="users-list clearfix">
-                      @foreach ($view_blogs as $view_blog)
+                      @foreach ($view_jobs as $view_job)
                       <li>
-                        <img src="{{ URL::asset("/public/../$view_blog->images")}}" alt="User Image">
-                        <a class="users-list-name" href="#">{{ $view_blog->fname }} {{ $view_blog->lname }}</a>
-                        <span class="users-list-date">{{ $view_blog->created_at->diffForHumans() }}</span>
+                        <img src="{{ URL::asset("/public/../$view_job->images")}}" alt="User Image">
+                        <a class="users-list-name" href="#">{{ $view_job->fname }} {{ $view_job->lname }}</a>
+                        <span class="users-list-date">{{ $view_job->created_at->diffForHumans() }}</span>
                       </li>
                       @endforeach
                      
@@ -223,7 +220,7 @@
                   </div>
                   <!-- /.card-body -->
                   <div class="card-footer text-center">
-                    <a href="{{ url('admin/viewteam') }}">View All Teams</a>
+                    <a href="{{ url('admin/viewjobs') }}">View All </a>
                   </div>
                   <!-- /.card-footer -->
                 </div>
@@ -236,7 +233,7 @@
             <!-- TABLE: LATEST ORDERS -->
             <div class="card">
               <div class="card-header border-transparent">
-                <h3 class="card-title">Latest Orders</h3>
+                <h3 class="card-title">Latest Contact</h3>
 
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -253,40 +250,26 @@
                   <table class="table m-0">
                     <thead>
                     <tr>
-                      <th>Order ID</th>
-                      <th>Item</th>
-                      <th>Qty</th>
-                      <th>Payment Status</th>
-                      <th>Amount</th>
-                      <th>Product Status</th>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Phone</th>
+                      <th>Subject</th>
+                      <th>Message</th>
+                    
                       <th>Date</th>
                     </tr>
                     </thead>
                     <tbody>
-                      @foreach ($view_blogs as $view_blog)
+                      @foreach ($view_contacts as $view_contact)
                       <tr>
-                        <td><a href="{{ url('admin/viewsingleorderadmin/'.$view_blog->ref_no) }}">{{ $view_blog->ref_no }}</a></td>
-                        <td>{{ $view_blog->productname }}</td>
-                        <td>{{ $view_blog->quantity }}</td>
-                        <td>@if ($view_blog->status == 'success')
-                          <span class="badge badge-success">Success</span>
-                        
-                          @elseif ($view_blog->status == 'pending')
-                          <span class="badge badge-warning">Payment Pending</span>
-                          @else
-                          
-                        @endif</td>
+                        <td>{{ $view_contact->name }}</td>
+                        <td>{{ $view_contact->email }}</td>
+                       
                         <td>
-                          <div class="sparkbar" data-color="#00a65a" data-height="20">₦ {{ $view_blog->amount}}</div>
+                          <div class="sparkbar" data-color="#00a65a" data-height="20">{{ $view_blog->phone}}</div>
                         </td>
-                        <td>@if ($view_blog->productstatus == null)
-                          <span class="badge badge-info">Pending</span>
-                        
-                          @elseif ($view_blog->productstatus == 'received')
-                          <span class="badge badge-success">Received</span>
-                          @else
-                          <span class="badge badge-dark">Delivered</span>
-                        @endif</td>
+                        <td>{{ $view_contact->subject }}</td>
+                        <td>{!! $view_contact->body !!}</td>
                         <td>{{ $view_blog->created_at->format('D m,Y, h:a') }}</td>
                       </tr>
                       @endforeach
@@ -301,7 +284,7 @@
               <!-- /.card-body -->
               <div class="card-footer clearfix">
                 {{-- <a href="javascript:void(0)" class="btn btn-sm btn-info float-left">Place New Order</a> --}}
-                <a href="{{ url('admin/vieworders') }}" class="btn btn-sm btn-secondary float-right">View All Orders</a>
+                <a href="{{ url('admin/viewcontacts') }}" class="btn btn-sm btn-secondary float-right">View All </a>
               </div>
               <!-- /.card-footer -->
             </div>
@@ -310,94 +293,13 @@
           <!-- /.col -->
 
           <div class="col-md-4">
-            <!-- Info Boxes Style 2 -->
-            <div class="info-box mb-3 bg-warning">
-              <span class="info-box-icon"><i class="fas fa-tag"></i></span>
+            
+       
 
-              <div class="info-box-content">
-                <span class="info-box-text">Unpaid Products</span>
-                <span class="info-box-number">4</span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-            <div class="info-box mb-3 bg-success">
-              <span class="info-box-icon"><i class="far fa-heart"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">Paid Products</span>
-                <span class="info-box-number">9</span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-            <div class="info-box mb-3 bg-danger">
-              <span class="info-box-icon"><i class="fas fa-users"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">Registration Failed</span>
-                <span class="info-box-number">4</span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-            <div class="info-box mb-3 bg-info">
-              <span class="info-box-icon"><i class="far fa-comment"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">Testimony</span>
-                <span class="info-box-number">3</span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-
+             
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Withdrawals</h3>
-
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
-                  </button>
-                </div>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <div class="row">
-                  <table class="table table-hover">
-                    <thead>
-                      <tr>
-                        <th>Name</th>
-                        <th>Amount</th>
-                        <th>Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Simon Udo</td>
-                        <td>N5000</td>
-                        <td>Success</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <!-- /.row -->
-              </div>
-              <!-- /.card-body -->
-              <div class="card-footer bg-white p-0">
-                
-                </ul>
-              </div>
-              <!-- /.footer -->
-            </div>
-            <!-- /.card -->
-
-            <!-- PRODUCT LIST -->
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Recently Added Products</h3>
+                <h3 class="card-title">Recent Subscribers</h3>
 
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -411,17 +313,12 @@
               <!-- /.card-header -->
               <div class="card-body p-0">
                 <ul class="products-list product-list-in-card pl-2 pr-2">
-                  @foreach ($view_blogs as $view_blog)
+                  @foreach ($view_subs as $view_subs)
                   <li class="item">
-                    <div class="product-img">
-                      <img src="{{ URL::asset("/public/../$view_blog->images1")}}" alt="Product Image" class="img-size-50">
-                    </div>
+                    
                     <div class="product-info">
-                      <a href="{{ url('admin/viewsingleproduct/'.$view_blog->ref_no) }}" class="product-title">{{ $view_blog->title }}
-                        <span class="badge badge-warning float-right">N {{ $view_blog->amount }}</span></a>
-                      <span class="product-description">
-                        <b style="color: red">{{ $view_blog->title }}</b> {{ $view_blog->title }}
-                      </span>
+                      <a href="#" class="product-title">
+                        <span class="badge badge-warning float-right">{{ $view_subs->email }}</span></a>
                     </div>
                   </li>
                   @endforeach
@@ -430,7 +327,7 @@
               </div>
               <!-- /.card-body -->
               <div class="card-footer text-center">
-                <a href="{{ url('admin/viewproducts') }}" class="uppercase">View All Products</a>
+                <a href="{{ url('admin/viewproducts') }}" class="uppercase">View All Subcribers</a>
               </div>
               <!-- /.card-footer -->
             </div>
@@ -438,48 +335,7 @@
 
 
 
-            <!-- PRODUCT LIST -->
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Recently Added Adverts</h3>
-
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                  </button>
-                </div>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body p-0">
-                <ul class="products-list product-list-in-card pl-2 pr-2">
-                  @foreach ($view_blogs as $view_advert)
-                  <li class="item">
-                    <div class="product-img">
-                      <img src="{{ URL::asset("/public/../$view_advert->images1")}}" alt="Product Image" class="img-size-50">
-                    </div>
-                    <div class="product-info">
-                      <a href="{{ url('admin/viewsingleadverts/'.$view_advert->ref_no) }}" class="product-title">{{ $view_advert->company_name }}
-                        <span class="badge badge-warning float-right"> {{ $view_advert->title }}</span></a>
-                      <span class="product-description">
-                        <b style="color: red">{{ $view_advert->phone }}</b> {{ $view_advert->email }}
-                      </span>
-                    </div>
-                  </li>
-                  @endforeach
-                  
-                </ul>
-              </div>
-              <!-- /.card-body -->
-              <div class="card-footer text-center">
-                <a href="{{ url('admin/viewadvertments') }}" class="uppercase">View All Adverts</a>
-              </div>
-              <!-- /.card-footer -->
-            </div>
-            <!-- /.card -->
-
+           
 
 
           </div>

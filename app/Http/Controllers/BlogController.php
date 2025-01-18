@@ -20,8 +20,7 @@ class BlogController extends Controller
 
         return view('dashboard.admin.addblog');
      }
-    public function viewblog()
-    {
+    public function viewblog(){
         
         $view_blogs = Blog::latest()->get();
         // return new BlogCollection($view_blogs);
@@ -49,12 +48,12 @@ class BlogController extends Controller
             $path = $file->storeAs('resourceimages', $filename);
         }
         $add_blog = new Blog();
-            $add_blog->title = $request->title;
-            $add_blog->body = $request->body;
-            $add_blog->author = $request->author;
-             $add_blog->slug = $slug;
-             $add_blog->images = $path;
-             $add_blog->save();
+        $add_blog->title = $request->title;
+        $add_blog->body = $request->body;
+        $add_blog->author = $request->author;
+        $add_blog->slug = $slug;
+        $add_blog->images = $path;
+        $add_blog->save();
 
         return redirect()->back()->with('message', 'Blog added successfully');
     }

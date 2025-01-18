@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FreetrainingController;
+use App\Http\Controllers\SubcriberController;
+use App\Http\Controllers\JobpostController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -23,6 +26,18 @@ Route::prefix('admin')->name('admin.')->group(function(){
 
     Route::middleware(['auth:admin'])->group(function(){
         
+        Route::get('/sub/destroy/{id}', [SubcriberController::class, 'destroy'])->name('destroy');
+        Route::get('/viewsubscribers', [SubcriberController::class, 'viewsubscribers'])->name('viewsubscribers');
+        Route::get('/contact/destroy/{id}', [ContactController::class, 'destroy'])->name('destroy');
+        Route::get('/viewcontacts', [ContactController::class, 'viewcontacts'])->name('viewcontacts');
+        Route::get('/job/destroy/{id}', [JobpostController::class, 'destroy'])->name('destroy');
+        Route::put('/job/update/{slug}', [JobpostController::class, 'update'])->name('update');
+        Route::get('/editjob/{slug}', [JobpostController::class, 'editjob'])->name('editjob');
+        Route::get('/viewjobs', [JobpostController::class, 'viewjobs'])->name('viewjobs');
+        Route::get('/addjob', [JobpostController::class, 'addjob'])->name('addjob');
+        Route::post('/job/store', [JobpostController::class, 'store'])->name('store');
+        Route::get('/job/show/{slug}', [JobpostController::class, 'show'])->name('show');
+        
         Route::put('/update/{slug}', [BlogController::class, 'update'])->name('update');
         Route::get('/ediblog/{slug}', [BlogController::class, 'ediblog'])->name('ediblog');
         Route::get('/destroy/{id}', [BlogController::class, 'destroy'])->name('destroy');
@@ -31,6 +46,8 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::post('/store', [BlogController::class, 'store'])->name('store');
         Route::get('/addblog', [BlogController::class, 'addblog'])->name('addblog');
         Route::get('/viewfreetraining', [FreetrainingController::class, 'viewfreetraining'])->name('viewfreetraining');
+        
+        Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
         Route::get('/home', [AdminController::class, 'home'])->name('home');
     });
 });

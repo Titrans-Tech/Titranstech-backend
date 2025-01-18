@@ -44,7 +44,7 @@
           
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tree"></i>
+              <i class="nav-icon text-warning fas fa-tree"></i>
               <p>
                 Free training Section
                 <i class="fas fa-angle-left right"></i>
@@ -62,7 +62,7 @@
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
+              <i class="nav-icon text-warning fas fa-copy"></i>
               <p>
                 BLog Section
                 <i class="fas fa-angle-left right"></i>
@@ -88,7 +88,7 @@
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
+              <i class="nav-icon fas text-warning fa-chart-pie"></i>
               <p>
                 Jobs Section
                 <i class="right fas fa-angle-left"></i>
@@ -112,7 +112,7 @@
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tree"></i>
+              <i class="nav-icon text-warning fas fa-tree"></i>
               <p>
                 Contact Section
                 <i class="fas fa-angle-left right"></i>
@@ -129,7 +129,24 @@
             </ul>
           </li>
           
-          
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon text-warning fas fa-users"></i>
+              <p>
+                Subscribers Section
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ url('admin/viewsubscribers') }}" class="nav-link">
+                  <i class="far fa-circle text-warning nav-icon"></i>
+                  <p>View Subscribers</p>
+                </a>
+              </li>
+             
+            </ul>
+          </li>
          
           <li class="nav-item">
             <a href="{{ url('admin/logout') }}" class="nav-link">

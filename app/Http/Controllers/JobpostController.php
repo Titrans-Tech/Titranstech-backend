@@ -9,90 +9,106 @@ use Illuminate\Http\Request;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 use App\Http\Resources\JobpostResourceCollection;
 use App\Http\Resources\JobpostResource;
+use App\Models\Job;
+
 class JobpostController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function addjob (){
+        return view('dashboard.admin.addjob');
+    }
+
+    public function viewjobs()
     {
         $view_jobs = Jobpost::latest()->get();
-        return new JobpostResourceCollection($view_jobs);
+        return view('dashboard.admin.viewjobs', compact('view_jobs'));
         
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreJobpostRequest $request)
-    {
-        $add_blog = Jobpost::create([
-            'title' => $request->title,
-            'body' => $request->body,
-            'company' => $request->company,
-            'slug' => SlugService::createSlug(Jobpost::class, 'slug', $request->title),
+    public function store(Request $request){
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'body' => 'required|string',
+            'company' => 'required|string',
+            'company_url' => 'required|string',
+            'images' => 'nullable|mimes:jpeg,png,jpg,gif,svg',
+
         ]);
 
-        if ($request->hasFile('images')){
-            $file = $request['images'];
+        $slug = SlugService::createSlug(Jobpost::class, 'slug', $request->title);
+
+        $path = 'noimage';
+        if ($request->hasFile('images')) {
+            $file = $request->file('images');
             $filename = 'SimonJonah-' . time() . '.' . $file->getClientOriginalExtension();
-            $path = $request->file('images')->storeAs('resourceimages', $filename);
-        }else{
-           $path = 'noimage'; 
+            $path = $file->storeAs('resourceimages', $filename);
         }
+        $add_blog = new Jobpost();
+        $add_blog->title = $request->title;
+        $add_blog->body = $request->body;
+        $add_blog->company = $request->company;
+        $add_blog->company_url = $request->company_url;
+        
+        $add_blog->slug = $slug;
+        $add_blog->images = $path;
+        $add_blog->save();
 
-        $add_blog['images'] = $path;
+        return redirect()->back()->with('message', 'Job added successfully');
 
-        // $path = $request->file('images')->store('images', 'public');
-        return response()->json([
-            // 'blog' => $add_blog,
-            // 'path' => $path,
-            'message' => 'You have created job successfully'
-        ], 201);
     }
 
     /**
      * Display the specified resource.
      */
+    public function editjob($slug)
+    {
+        $edit_jobs = Jobpost::where('slug', $slug)->first();
+        return view('dashboard.admin.editjob', compact('edit_jobs'));
+    }
+
     public function show($slug)
     {
         $viewsingle_jobs = Jobpost::where('slug', $slug)->first();
-        return new JobpostResource($viewsingle_jobs);
+        return view('dashboard.admin.viewsinglejobs', compact('viewsingle_jobs'));
     }
-
+    
     /**
      * Update the specified resource in storage.Jobpost $jobpost
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $slug)
     {
-        $edit_job = Jobpost::findOrFail($id);
+        $edit_jobs = Jobpost::where('slug', $slug)->first();
         
         $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'body' => ['required', 'string'],
             'company' => ['required', 'string'],
-            'images' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            'company_url' => ['required', 'string'],
+            'images' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
         ]);
 
         if ($request->hasFile('images')){
             $file = $request['images'];
             $filename = 'SimonJonah-' . time() . '.' . $file->getClientOriginalExtension();
             $path = $request->file('images')->storeAs('resourceimages', $filename);
-            $edit_job['images'] = $path;
+            $edit_jobs['images'] = $path;
         }else{
            $path = 'noimage'; 
         }
 
-        $edit_job->title = $request->title;
-        $edit_job->company = $request->company;
-        $edit_job->body = $request->body;
-        $edit_job->save();
+        $edit_jobs->title = $request->title;
+        $edit_jobs->company_url = $request->company_url;
+        $edit_jobs->company = $request->company;
+        $edit_jobs->body = $request->body;
+        $edit_jobs->update();
 
-        // $path = $request->file('images')->store('images', 'public');
-        return response()->json([
-            'blog' => $edit_job,
-            'message' => 'You have updated job successfully'
-        ], 200);
+        return redirect()->back()->with('message', 'Job updated successfully');
+
     }
 
     /**
@@ -103,8 +119,7 @@ class JobpostController extends Controller
         $jobpost = Jobpost::findOrFail($id);
         $jobpost->delete();
 
-        return response()->json([
-            'message' => 'blog deleted successfully',
-        ], 200);
+        return redirect()->back()->with('success', 'Job deleted successfully');
+
     }
 }
