@@ -64,3 +64,5 @@ public function deletestudent($id){
     return redirect()->back()->with('success', 'Student deleted successfully');
 
 }
+
+}

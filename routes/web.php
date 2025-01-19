@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\FreetrainingController;
 use App\Http\Controllers\SubcriberController;
 use App\Http\Controllers\JobpostController;
@@ -51,6 +52,7 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::get('/viewstudents', [StudentController::class, 'viewstudents'])->name('viewstudents');
         Route::get('/viewsinglestudent/{id}', [StudentController::class, 'viewsinglestudent'])->name('viewsinglestudent');
         Route::get('/deletestudent/{id}', [StudentController::class, 'deletestudent'])->name('deletestudent');
+        Route::get('/addcourse', [CourseController::class, 'addcourse'])->name('addcourse');
         
         Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
         Route::get('/home', [AdminController::class, 'home'])->name('home');
