@@ -129,7 +129,6 @@
                   <ul class="users-list clearfix">
                     @foreach ($view_trainings as $view_training)
                     <li>
-                      <img src="{{ URL::asset("/public/../$view_training->images")}}" alt="User Image">
                       <a class="users-list-name" href="{{ url('admin/viewsingledistributor/'.$view_training->ref_no) }}">{{ $view_training->fname }} {{ $view_training->lname }}</a>
                       <span class="users-list-date">{{ $view_training->created_at->diffForHumans() }}</span>
                     </li>
@@ -266,11 +265,11 @@
                         <td>{{ $view_contact->email }}</td>
                        
                         <td>
-                          <div class="sparkbar" data-color="#00a65a" data-height="20">{{ $view_blog->phone}}</div>
+                          <div class="sparkbar" data-color="#00a65a" data-height="20">{{ $view_contact->phone}}</div>
                         </td>
                         <td>{{ $view_contact->subject }}</td>
                         <td>{!! $view_contact->body !!}</td>
-                        <td>{{ $view_blog->created_at->format('D m,Y, h:a') }}</td>
+                        <td>{{ $view_contact->created_at->format('D m,Y, h:a') }}</td>
                       </tr>
                       @endforeach
                     

@@ -42,7 +42,7 @@
             </ul>
           </li>
           
-          <li class="nav-item has-treeview">
+          {{-- <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon text-warning fas fa-tree"></i>
               <p>
@@ -59,7 +59,7 @@
               </li>
              
             </ul>
-          </li>
+          </li> --}}
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon text-warning fas fa-copy"></i>
@@ -145,6 +145,37 @@
                 </a>
               </li>
              
+            </ul>
+          </li>
+
+
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon text-warning fas fa-users"></i>
+              <p>
+                Students Section
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ url('admin/viewfreetraining') }}" class="nav-link">
+                  <i class="far fa-circle text-warning nav-icon"></i>
+                  <p>View Freetraining</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('admin/viewstudents') }}" class="nav-link">
+                  <i class="far fa-circle text-warning nav-icon"></i>
+                  <p>Old Students</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('admin/viewfreetraining') }}" class="nav-link">
+                  <i class="far fa-circle text-warning nav-icon"></i>
+                  <p>Paid Students </p>
+                </a>
+              </li>
             </ul>
           </li>
          

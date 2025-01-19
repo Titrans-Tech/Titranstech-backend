@@ -6,6 +6,8 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FreetrainingController;
 use App\Http\Controllers\SubcriberController;
 use App\Http\Controllers\JobpostController;
+use App\Http\Controllers\StudentController;
+
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -46,6 +48,9 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::post('/store', [BlogController::class, 'store'])->name('store');
         Route::get('/addblog', [BlogController::class, 'addblog'])->name('addblog');
         Route::get('/viewfreetraining', [FreetrainingController::class, 'viewfreetraining'])->name('viewfreetraining');
+        Route::get('/viewstudents', [StudentController::class, 'viewstudents'])->name('viewstudents');
+        Route::get('/viewsinglestudent/{id}', [StudentController::class, 'viewsinglestudent'])->name('viewsinglestudent');
+        Route::get('/deletestudent/{id}', [StudentController::class, 'deletestudent'])->name('deletestudent');
         
         Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
         Route::get('/home', [AdminController::class, 'home'])->name('home');

@@ -47,4 +47,20 @@ class StudentController extends Controller
     }
 }
 
+public function viewstudents(){
+    $view_students = Student::latest()->get();
+    return view('dashboard.admin.viewstudents', compact('view_students'));
+}
+
+public function viewsinglestudent($id){
+    $view_student = Student::find($id);
+    return view('dashboard.admin.viewsinglestudent', compact('view_student'));
+
+}
+
+public function deletestudent($id){
+    $delete_student = Student::find($id);
+    $delete_student->delete();
+    return redirect()->back()->with('success', 'Student deleted successfully');
+
 }

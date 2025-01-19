@@ -42,7 +42,6 @@
                     <th>Email</th>
                     <th>Project</th>
                     <th>Message</th>
-                    <th>Edit</th>
                     <th>Delete</th>
                     <th>Date</th>
                   </tr>
@@ -64,7 +63,7 @@
                         <td>{{ $view_contact->name }}</td>
                         <td>{{ $view_contact->email }}</td>
                         <td>{{ $view_contact->project }}</td>
-                        <td>{{ $view_contact->message }}</td>
+                        <td>{!! $view_contact->body !!}</td>
                         
                         
                       
@@ -83,7 +82,6 @@
                       <th>Email</th>
                       <th>Project</th>
                       <th>Message</th>
-                      <th>Edit</th>
                       <th>Delete</th>
                       <th>Date</th>
                     </tr>
