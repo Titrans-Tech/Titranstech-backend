@@ -10,12 +10,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>View Course</h1>
+            <h1>View Courses</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">View Course</li>
+              <li class="breadcrumb-item active">View Courses</li>
             </ol>
           </div>
         </div>
@@ -31,7 +31,7 @@
             <!-- general form elements -->
             <div class="card card-warning">
               <div class="card-header">
-                <h3 class="card-title">View Course</h3>
+                <h3 class="card-title">View Courses</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
@@ -58,7 +58,7 @@
                       <div class="form-group">
                         <label for="">Title</label>
                         <input name="title" type="text" @error('title') is-invalid @enderror"
-                        value="{{ old('title') }}" class="form-control" id="" placeholder="Title">
+                        value="{{ $view_course->title }}" class="form-control" id="" placeholder="Title">
                     </div>
                     @error('title')
                         <span class="text-danger">{{ $message }}</span>
@@ -68,7 +68,7 @@
                     <div class="form-group">
                       <label for="">Duration</label>
                       <input name="duration" type="text" @error('duration') is-invalid @enderror"
-                      value="{{ old('duration') }}" class="form-control" id="" placeholder="duration">
+                      value="{{ $view_course->duration }}" class="form-control" id="" placeholder="duration">
                   </div>
                   @error('duration')
                       <span class="text-danger">{{ $message }}</span>
@@ -77,7 +77,7 @@
                    <div class="form-group">
                       <label for="">Amount</label>
                       <input name="amount" type="text" @error('amount') is-invalid @enderror"
-                      value="{{ old('amount') }}" class="form-control" id="" placeholder="amount">
+                      value="{{ $view_course->amount }}" class="form-control" id="" placeholder="amount">
                   </div>
                   @error('amount')
                       <span class="text-danger">{{ $message }}</span>
@@ -91,6 +91,8 @@
 
                       <!-- /.form-group -->
                      <div class="form-group">
+                      <img style="width: 50px; height: 50px;" src="{{ URL::asset("/public/../$view_course->images")}}" alt="">
+
                         <label for="">Image</label>
                         <input required name="images" type="file" @error('images') is-invalid @enderror"
                         value="{{ old('images') }}" class="form-control" id="" placeholder="Price">
@@ -102,10 +104,8 @@
                     <div class="form-group">
                       <label for="">Body</label>
                       <textarea class="textarea" name="body" placeholder="Place some text here"
-                          style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                          style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{ $view_course->body }}</textarea>
 
-                      {{-- <textarea name="body" cols="10" rows="10" @error('body') is-invalid @enderror"
-                      value="{{ old('body') }}" class="form-control"></textarea> --}}
                   </div>
                   @error('body')
                       <span class="text-danger">{{ $message }}</span>
@@ -116,7 +116,7 @@
                     <!-- /.col -->
                   </div>
                   <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    {{-- <button type="submit" class="btn btn-primary">Submit</button> --}}
                   </div>
               </form>
             </div>

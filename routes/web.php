@@ -53,6 +53,11 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::get('/viewsinglestudent/{id}', [StudentController::class, 'viewsinglestudent'])->name('viewsinglestudent');
         Route::get('/deletestudent/{id}', [StudentController::class, 'deletestudent'])->name('deletestudent');
         Route::get('/addcourse', [CourseController::class, 'addcourse'])->name('addcourse');
+        Route::post('/createcourse', [CourseController::class, 'createcourse'])->name('createcourse');
+        Route::get('/viewcourse', [CourseController::class, 'viewcourse'])->name('viewcourse');
+        Route::get('/course/show/{slug}', [CourseController::class, 'show'])->name('show');
+        Route::get('/editcourse/{slug}', [CourseController::class, 'editcourse'])->name('editcourse');
+        Route::put('/updatecourse/{id}', [CourseController::class, 'updatecourse'])->name('updatecourse');
         
         Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
         Route::get('/home', [AdminController::class, 'home'])->name('home');
