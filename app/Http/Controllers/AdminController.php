@@ -65,4 +65,29 @@ class AdminController extends Controller
         Auth::guard('admin')->logout();
         return redirect()->route('admin.login');
     }
+
+    public function viewroles(){
+        $view_roles = Admin::latest()->get();
+        return view('dashboard.admin.viewroles', compact('view_roles'));
+    }
+
+    public function approveadadmin($id){
+        $approve = Admin::find($id);
+        $approve->role = 'admin';
+        $approve->save();
+        return redirect()->back()->with('success', 'Admin approved successfully');
+    }
+
+    public function suspendadmin($id){
+        $suspend = Admin::find($id);
+        $suspend->role = 'suspend';
+        $suspend->save();
+        return redirect()->back()->with('success', 'Admin suspended successfully');
+    }
+
+    public function deleteadmin($id){
+        $delete = Admin::find($id);
+        $delete->delete();
+        return redirect()->back()->with('success', 'Admin deleted successfully');
+    }
 }

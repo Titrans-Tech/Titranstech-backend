@@ -22,7 +22,15 @@
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
+    @if (Auth::guard('admin')->user()->role == null)
+      <h4>Please for Approval</h4>
 
+      @elseif(Auth::guard('admin')->user()->role == 'suspend')
+    
+      <h4>You have been suspended </h4>
+
+      @elseif(Auth::guard('admin')->user()->role == 'admin')
+      
     <section class="content">
       <div class="container-fluid">
         <!-- Info boxes -->
@@ -344,6 +352,9 @@
       </div><!--/. container-fluid -->
     </section>
     <!-- /.content -->
+    @else
+      
+    @endif
   </div>
   <!-- /.content-wrapper -->
 

@@ -38,15 +38,12 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>Title</th>
-                    <th>Duration</th>
-                    <th>Amount</th>
-                    <th>Images</th>
-                    <th>View</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
+                    <th>Email</th>
                     <th>Status</th>
-                    <th>Action</th>
+                    <th>Approved</th>
+                    <th>Suspend</th>
+                   
+                    <th>Delete</th>
                     <th>Date</th>
                   </tr>
                   </thead>
@@ -61,60 +58,43 @@
                   <div class="alert alert-danger">
                   {{ Session::get('fail') }}
                   @endif
-                  @foreach ($view_courses as $view_course)
+                  @foreach ($view_roles as $view_role)
                     <tr>
                         
-                        <td>{{ $view_course->title }}</td>
-                        <td>{{ $view_course->duration }}</td>
-                        <td>NGN {{ $view_course->amount }}</td>
-                        <td><img style="width: auto; height: 30px;" src="{{ URL::asset("/public/../$view_course->images")}}" alt=""></td>
-                       <td><a href="{{ url('admin/course/show/'.$view_course->slug) }}"
-                        class='btn btn-success'>
-                         <i class="far fa-eye"></i>
-                     </a></td>
-                     <td><a href="{{ url('admin/editcourse/'.$view_course->slug) }}"
-                      class='btn btn-warning'>
-                       <i class="far fa-edit"></i>
-                   </a></td>
-
-                       <td><a href="{{ url('admin/deletecourse/'.$view_course->id) }}"
-                        class='btn btn-danger'>
-                         <i class="far fa-trash-alt"></i>
-                     </a></td>
-                     <td>@if ($view_course->status == null)
-                      <span class="badge badge-warning">Not Approved</span>
-                        @elseif ($view_course->status == 'approved')
+                        <td>{{ $view_role->email }}</td>
+                        <td>@if ($view_role->role == null)
+                            <span class="badge badge-warning">Not Approved</span>
+                        @elseif ($view_role->role == 'admin')
                             <span class="badge badge-success">Approved</span>
                         @else
                             <span class="badge badge-danger">Suspended</span> 
                         @endif </td>
-                     <td> <div class="input-group input-group-lg mb-3">
-                      <div class="input-group-prepend">
-                        <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
-                          Action
-                        </button>
-                        <ul class="dropdown-menu">
-                          <li class="dropdown-item"><a href="{{ url('admin/approvedcourse/'.$view_course->id) }}">Approved</a></li>
-                          <li class="dropdown-item"><a href="{{ url('admin/susendcourse/'.$view_course->id) }}">Suspend</a></li>
-                          
-                        </ul>
-                      </div>
-                      <!-- /btn-group --></td>
-                     <td>{{ $view_course->created_at->format('D d, M Y, H:i')}}</td>
+
+                       <td><a href="{{ url('admin/approveadadmin/'.$view_role->id) }}"
+                        class='btn btn-success'>
+                         <i class="far fa-user"></i>
+                     </a></td>
+                     <td><a href="{{ url('admin/suspendadmin/'.$view_role->id) }}"
+                      class='btn btn-warning'>
+                       <i class="far fa-user"></i>
+                   </a></td>
+
+                       <td><a href="{{ url('admin/deleteadmin/'.$view_role->id) }}"
+                        class='btn btn-danger'>
+                         <i class="far fa-trash-alt"></i>
+                     </a></td>
+                     <td>{{ $view_role->created_at->format('D d, M Y, H:i')}}</td>
                     </tr>
                     @endforeach
                   </tbody>
                   <tfoot>
                     <tr>
-                        <th>Title</th>
-                        <th>Duration</th>
-                        <th>Amount</th>
-                        <th>Images</th>
-                        <th>View</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
+                        <th>Email</th>
                         <th>Status</th>
-                        <th>Action</th>
+                        <th>Approved</th>
+                        <th>Suspend</th>
+                       
+                        <th>Delete</th>
                         <th>Date</th>
                       </tr>
                   </tfoot>

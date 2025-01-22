@@ -58,7 +58,14 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::get('/course/show/{slug}', [CourseController::class, 'show'])->name('show');
         Route::get('/editcourse/{slug}', [CourseController::class, 'editcourse'])->name('editcourse');
         Route::put('/updatecourse/{id}', [CourseController::class, 'updatecourse'])->name('updatecourse');
+        Route::get('/approvedcourse/{id}', [CourseController::class, 'approvedcourse'])->name('approvedcourse');
+        Route::get('/susendcourse/{id}', [CourseController::class, 'susendcourse'])->name('susendcourse');
+        Route::get('/deletecourse/{id}', [CourseController::class, 'deletecourse'])->name('deletecourse');
         
+        Route::get('/deleteadmin/{id}', [AdminController::class, 'deleteadmin'])->name('deleteadmin');
+        Route::get('/suspendadmin/{id}', [AdminController::class, 'suspendadmin'])->name('suspendadmin');
+        Route::get('/approveadadmin/{id}', [AdminController::class, 'approveadadmin'])->name('approveadadmin');
+        Route::get('/viewroles', [AdminController::class, 'viewroles'])->name('viewroles');
         Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
         Route::get('/home', [AdminController::class, 'home'])->name('home');
     });

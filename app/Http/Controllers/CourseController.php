@@ -72,21 +72,58 @@ class CourseController extends Controller
         return view('dashboard.admin.editcourse', compact('edit_course'));
     }
     
-    public function updatecourse(UpdateCourseRequest $request, $id){
+    public function updatecourse(Request $request, $id){
         $update_course = Course::find($id);
         $path = 'noimage';
         if ($request->hasFile('images')) {
             $file = $request->file('images');
             $filename = 'SimonJonah-' . time() . '.' . $file->getClientOriginalExtension();
             $path = $file->storeAs('resourceimages', $filename);
+            $update_course->images = $path;
+       
         }
+
         $update_course->title = $request->title;
         $update_course->amount = $request->amount;
         $update_course->duration = $request->duration;
         $update_course->body = $request->body;
-        $update_course->images = $path;
         $update_course->update();
-        return redirect()->back()->with('success', 'Course updated successfully');
+        if ($update_course) {
+            return redirect()->back()->with('success', 'Course updated successfully');
+        }
+        return redirect()->back()->with('fail', 'Course not updated successfully');
+    }
+
+
+    public function susendcourse($id){
+        $suspend_course = Course::find($id);
+        $suspend_course->status = 'suspended';
+        $suspend_course->update();
+        if ($suspend_course) {
+            return redirect()->back()->with('success', 'Course suspended successfully');
+        }
+        return redirect()->back()->with('fail', 'Course not suspended successfully');
+    }
+
+
+    public function approvedcourse($id){
+        $approved_course = Course::find($id);
+        $approved_course->status = 'approved';
+        $approved_course->update();
+        if ($approved_course) {
+            return redirect()->back()->with('success', 'Course approved successfully');
+        }
+        return redirect()->back()->with('fail', 'Course not approved successfully');
+    }
+
+
+    public function deletecourse($id){
+        $delete_course = Course::find($id);
+        $delete_course->delete();
+        if ($delete_course) {
+            return redirect()->back()->with('success', 'Course deleted successfully');
+        }
+        return redirect()->back()->with('fail', 'Course not deleted successfully');
     }
 
     /**

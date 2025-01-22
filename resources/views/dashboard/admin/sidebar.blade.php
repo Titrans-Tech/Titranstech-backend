@@ -288,6 +288,33 @@
               </li>
             </ul>
           </li>
+
+
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon text-warning fas fa-tree"></i>
+              <p>
+                Roles Section
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              {{-- <li class="nav-item">
+                <a href="{{ url('admin/addroles') }}" class="nav-link">
+                  <i class="far fa-circle text-warning nav-icon"></i>
+                  <p>Add Role</p>
+                </a>
+              </li> --}}
+
+              <li class="nav-item">
+                <a href="{{ url('admin/viewroles') }}" class="nav-link">
+                  <i class="far fa-circle text-warning nav-icon"></i>
+                  <p>View Roles</p>
+                </a>
+              </li>
+             
+            </ul>
+          </li>
          
           <li class="nav-item">
             <a href="{{ url('admin/logout') }}" class="nav-link">

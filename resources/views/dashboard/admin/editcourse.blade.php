@@ -37,10 +37,10 @@
               <!-- form start -->
               <form action="{{ url('admin/updatecourse/'.$edit_course->id) }}" method="post" enctype="multipart/form-data">
                   @csrf
-                  {{-- @method('PUT') --}}
+                  @method('PUT')
                   @if (Session::get('success'))
                   <div class="alert alert-success">
-                      {{ Session::get('message') }}
+                      {{ Session::get('success') }}
                   </div>
                   @endif
 
@@ -94,7 +94,7 @@
                       <img style="width: 50px; height: 50px;" src="{{ URL::asset("/public/../$edit_course->images")}}" alt="">
 
                         <label for="">Image</label>
-                        <input required name="images" type="file" @error('images') is-invalid @enderror"
+                        <input  name="images" type="file" @error('images') is-invalid @enderror"
                         value="{{ old('images') }}" class="form-control" id="" placeholder="Price">
                     </div>
                     @error('images')
