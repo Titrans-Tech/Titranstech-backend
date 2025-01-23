@@ -116,4 +116,18 @@ class BlogController extends Controller
         return redirect()->back()->with('message', 'You updated the blog succesffuly');
 
     }
+
+
+    public function viewblogapi(){
+        // destiny-can-be-delayed-but-con-not-change
+        $view_blogs = Blog::latest()->get();
+        return new BlogCollection($view_blogs);
+    }
+
+    public function viewsingleblogdetailapi(Request $request){
+        $slug = $request->slug;
+        $viewsingle_blog = Blog::where('slug', $slug)->first();
+        return new BlogResource($viewsingle_blog);
+    }
+
 }

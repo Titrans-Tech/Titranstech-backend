@@ -122,4 +122,18 @@ class JobpostController extends Controller
         return redirect()->back()->with('success', 'Job deleted successfully');
 
     }
+
+    public function viewjobsapi()
+    {
+        $view_jobs = Jobpost::latest()->get();
+
+        return new JobpostResourceCollection($view_jobs);
+    }
+
+    public function viewsinglejobdetailapi($slug)
+    {
+        $viewsingle_jobs = Jobpost::where('slug', $slug)->first();
+
+        return new JobpostResource($viewsingle_jobs);
+    }
 }

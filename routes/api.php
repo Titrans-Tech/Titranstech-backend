@@ -18,6 +18,10 @@ use App\Models\Jobpost;
 //     return $request->user();
 // })->middleware('auth:sanctum');
 
+Route::get('blog/viewblogs', [BlogController::class, 'viewblogapi']);
+Route::get('blog/viewsingleblogdetails/{slug}', [BlogController::class, 'viewsingleblogdetailapi']);
+Route::get('jobs/viewjobs', [JobpostController::class, 'viewjobsapi']);
+Route::get('jobs/viewsinglejobdetails/{slug}', [JobpostController::class, 'viewsinglejobdetailapi']);
 
 Route::getRoutes();
 Route::get('/', [ApiController::class, 'index']);

@@ -23,7 +23,7 @@
     </div>
     <!-- /.content-header -->
     @if (Auth::guard('admin')->user()->role == null)
-      <h4>Please for Approval</h4>
+      <h4>Please wait for Approval</h4>
 
       @elseif(Auth::guard('admin')->user()->role == 'suspend')
     
