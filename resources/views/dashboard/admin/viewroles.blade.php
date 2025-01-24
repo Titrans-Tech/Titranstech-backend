@@ -40,7 +40,8 @@
                   <tr>
                     <th>Email</th>
                     <th>Status</th>
-                    <th>Approved</th>
+                    <th>Admin</th>
+                    <th>User</th>
                     <th>Suspend</th>
                    
                     <th>Delete</th>
@@ -65,7 +66,10 @@
                         <td>@if ($view_role->role == null)
                             <span class="badge badge-warning">Not Approved</span>
                         @elseif ($view_role->role == 'admin')
-                            <span class="badge badge-success">Approved</span>
+                            <span class="badge badge-success">Admin</span>
+
+                            @elseif ($view_role->role == 'user')
+                            <span class="badge badge-info">User</span>
                         @else
                             <span class="badge badge-danger">Suspended</span> 
                         @endif </td>
@@ -74,6 +78,12 @@
                         class='btn btn-success'>
                          <i class="far fa-user"></i>
                      </a></td>
+
+                     <td><a href="{{ url('admin/approveauser/'.$view_role->id) }}"
+                      class='btn btn-primary'>
+                       <i class="far fa-user"></i>
+                   </a></td>
+
                      <td><a href="{{ url('admin/suspendadmin/'.$view_role->id) }}"
                       class='btn btn-warning'>
                        <i class="far fa-user"></i>
@@ -91,7 +101,8 @@
                     <tr>
                         <th>Email</th>
                         <th>Status</th>
-                        <th>Approved</th>
+                        <th>Admin</th>
+                        <th>User</th>
                         <th>Suspend</th>
                        
                         <th>Delete</th>

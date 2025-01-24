@@ -67,6 +67,8 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::get('/approveadadmin/{id}', [AdminController::class, 'approveadadmin'])->name('approveadadmin');
         Route::get('/viewroles', [AdminController::class, 'viewroles'])->name('viewroles');
         Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
+        Route::get('/approveauser/{id}', [AdminController::class, 'approveauser'])->name('approveauser');
+        
         Route::get('/home', [AdminController::class, 'home'])->name('home');
     });
 });

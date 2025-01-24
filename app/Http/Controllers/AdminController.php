@@ -85,6 +85,14 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Admin suspended successfully');
     }
 
+    public function approveauser($id){
+        $user = Admin::find($id);
+        $user->role = 'user';
+        $user->save();
+        return redirect()->back()->with('success', 'Admin User successfully');
+    }
+
+    
     public function deleteadmin($id){
         $delete = Admin::find($id);
         $delete->delete();

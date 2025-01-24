@@ -29,7 +29,7 @@
     
       <h4>You have been suspended </h4>
 
-      @elseif(Auth::guard('admin')->user()->role == 'admin')
+      @elseif(Auth::guard('admin')->user()->role == 'admin' || Auth::guard('admin')->user()->role == 'user')
       
     <section class="content">
       <div class="container-fluid">
