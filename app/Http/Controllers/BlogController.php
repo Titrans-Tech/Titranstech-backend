@@ -36,7 +36,7 @@ class BlogController extends Controller
             'title' => 'required|string|max:255',
             'body' => 'required|string',
             'author' => 'required|string|max:255',
-            'images' => 'nullable|mimes:jpeg,png,jpg,gif,svg',
+            'images' => 'required|mimes:jpeg,png,jpg,gif,svg',
         ]);
 
         $slug = SlugService::createSlug(Blog::class, 'slug', $request->title);
@@ -83,7 +83,7 @@ class BlogController extends Controller
             'title' => 'required|string|max:255',
             'body' => 'nullable|string',
             'author' => 'nullable|string',
-            'images' => 'required|mimes:jpeg,png,jpg,gif,svg',
+            'images' => 'nullable|mimes:jpeg,png,jpg,gif,svg',
         ]);
         // $edit_blog = Blog::findOrFail($id);
         // dd($request);

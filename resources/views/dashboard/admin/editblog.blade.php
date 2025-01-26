@@ -79,7 +79,7 @@
                      <div class="form-group">
                         <img style="width: 50px; height: 50px;" src="{{ URL::asset("/public/../$edit_blog->images")}}" alt="">
                         <label for="">Image</label>
-                        <input required name="images" type="file" @error('images') is-invalid @enderror"
+                        <input  name="images" type="file" @error('images') is-invalid @enderror"
                         value="{{ old('images') }}" class="form-control" id="" placeholder="Price">
                     </div>
                     @error('images')

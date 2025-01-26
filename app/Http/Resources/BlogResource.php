@@ -18,7 +18,7 @@ class BlogResource extends JsonResource
             'title' => $this->title,
             'body' => $this->body,
             'author' => $this->author,
-            'images' => asset('resourceimages/' . $this->images),  // Include the image URL
+            'images' => asset($this->images),  // Include the image URL
             'created_at' => $this->created_at->format('M d,Y'),
         ];
     }

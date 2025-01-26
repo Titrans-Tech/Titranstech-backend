@@ -21,7 +21,7 @@ class JobpostResourceCollection extends ResourceCollection
                     'title' => $user->title,
                     'body' => $user->body,
                     'company' => $user->company,
-                    'images' => asset('resourceimages/' . $user->images),  // Include the image URL
+                    'images' => asset($user->images),  // Include the image URL
                     'created_at' => $user->created_at->format('M d,Y'),
                     
                 ];
