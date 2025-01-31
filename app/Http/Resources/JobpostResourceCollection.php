@@ -18,6 +18,8 @@ class JobpostResourceCollection extends ResourceCollection
             'data' => $this->collection->transform(function ($user) {
                 return [
                     'slug' => $user->slug,
+                    'company_url' => $user->company_url,
+                    
                     'title' => $user->title,
                     'body' => $user->body,
                     'company' => $user->company,

@@ -91,7 +91,14 @@
                       
                     
 
-                     
+                      <div class="form-group">
+                        <label for="">Quote</label>
+                        <input name="quote" type="text" @error('quote') is-invalid @enderror"
+                        value="{{ old('quote') }}" class="form-control" id="" placeholder="Quote">
+                    </div>
+                    @error('quote')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
 
                     <div class="form-group">
                       <label for="">Message</label>

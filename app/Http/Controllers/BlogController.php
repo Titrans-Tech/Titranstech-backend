@@ -36,6 +36,8 @@ class BlogController extends Controller
             'title' => 'required|string|max:255',
             'body' => 'required|string',
             'author' => 'required|string|max:255',
+            'quote' => 'nullable|string|max:255',
+            
             'images' => 'required|mimes:jpeg,png,jpg,gif,svg',
         ]);
 
@@ -51,6 +53,7 @@ class BlogController extends Controller
         $add_blog->title = $request->title;
         $add_blog->body = $request->body;
         $add_blog->author = $request->author;
+        $add_blog->quote = $request->quote;
         $add_blog->slug = $slug;
         $add_blog->images = $path;
         $add_blog->save();
@@ -83,10 +86,10 @@ class BlogController extends Controller
             'title' => 'required|string|max:255',
             'body' => 'nullable|string',
             'author' => 'nullable|string',
+            'quote' => 'nullable|string',
             'images' => 'nullable|mimes:jpeg,png,jpg,gif,svg',
         ]);
-        // $edit_blog = Blog::findOrFail($id);
-        // dd($request);
+       
         if ($request->hasFile('images')){
             $file = $request['images'];
             $filename = 'SimonJonah-' . time() . '.' . $file->getClientOriginalExtension();
@@ -97,6 +100,7 @@ class BlogController extends Controller
            $path = 'noimage'; 
         }
 
+        $edit_blog->quote = $request->quote;
         $edit_blog->title = $request->title;
         $edit_blog->author = $request->author;
         $edit_blog->body = $request->body;
@@ -119,7 +123,6 @@ class BlogController extends Controller
 
 
     public function viewblogapi(){
-        // destiny-can-be-delayed-but-con-not-change
         $view_blogs = Blog::latest()->get();
         return new BlogCollection($view_blogs);
     }

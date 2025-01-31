@@ -20,6 +20,7 @@ class BlogCollection extends ResourceCollection
                     'slug' => $user->slug,
                     'title' => $user->title,
                     'body' => $user->body,
+                    'quote' => $user->quote,
                     'images' => asset($user->images),  // Include the image URL
                     'created_at' => $user->created_at->format('M d,Y'),
                     

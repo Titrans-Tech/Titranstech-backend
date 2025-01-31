@@ -18,6 +18,8 @@ class JobpostResource extends JsonResource
             'slug' => $this->slug,
             'title' => $this->title,
             'body' => $this->body,
+            'company_url' => $this->company_url,
+
             'company' => $this->company,
             'images' => asset($this->images),  // Include the image URL
             'created_at' => $this->created_at->format('M d,Y'),
