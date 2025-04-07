@@ -174,7 +174,7 @@
                 <ul class="users-list clearfix">
                   @foreach ($view_blogs as $view_blog)
                   <li>
-                    <img src="{{ URL::asset("/public/../$view_blog->images")}}" alt="User Image">
+                    <img style="width: 50px; height: 50px" src="{{ URL::asset("/public/../$view_blog->images")}}" alt="User Image">
                     <a class="users-list-name" href="{{ url('admin/show/'.$view_blog->slug) }}">{{ $view_blog->fname }} {{ $view_blog->lname }}</a>
                     <span class="users-list-date">{{ $view_blog->created_at->diffForHumans() }}</span>
                   </li>
@@ -215,7 +215,7 @@
                     <ul class="users-list clearfix">
                       @foreach ($view_jobs as $view_job)
                       <li>
-                        <img src="{{ URL::asset("/public/../$view_job->images")}}" alt="User Image">
+                        <img style="width: 50px; height: 50px" src="{{ URL::asset("/public/../$view_job->images")}}" alt="User Image">
                         <a class="users-list-name" href="#">{{ $view_job->fname }} {{ $view_job->lname }}</a>
                         <span class="users-list-date">{{ $view_job->created_at->diffForHumans() }}</span>
                       </li>
@@ -281,8 +281,6 @@
                       </tr>
                       @endforeach
                     
-                   
-                   
                     </tbody>
                   </table>
                 </div>

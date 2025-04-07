@@ -72,6 +72,13 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::get('/home', [AdminController::class, 'home'])->name('home');
     });
 });
+
+
+
+Route::get('/applications', function () {
+
+    return view('applications');
+});
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
